@@ -253,6 +253,18 @@ void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGr
 
         switch(x.Type)
         {
+		case ProxyType::hysteria:
+            singleproxy["type"] = "hysteria";
+            singleproxy["auth_str"] = x.Password;
+			singleproxy["up"] = x.Up;
+			singleproxy["down"] = x.Down;
+			singleproxy["obfs"] = x.OBFS;
+			singleproxy["skip-cert-verify"] = x.AllowInsecure;
+			singleproxy["disable_mtu_discovery"] = x.TransferProtocol;
+			singleproxy["protocol"] = x.Protocol;
+			singleproxy["fast-open"] = x.TCPFastOpen;			
+			singleproxy["ports"] = x.Ports;			
+            break;	
         case ProxyType::Shadowsocks:
             //latest clash core removed support for chacha20 encryption
             if(ext.filter_deprecated && x.EncryptMethod == "chacha20")
