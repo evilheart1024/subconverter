@@ -988,8 +988,8 @@ void explodeClash(Node yamlnode, std::vector<Proxy> &nodes)
 			singleproxy["down"] >>= down;
 			singleproxy["ports"] >>= ports;
 			singleproxy["disable_mtu_discovery"] >>= dmd;
-
-            hyConstruct(node, group, ps, server, port, password, udp, tfo, scv, "", protocol,  obfs, up, down,  ports, dmd)
+            tfo = safe_as<std::string>(singleproxy["fast-open"]);
+            hyConstruct(node, group, ps, server, port, password, udp, tfo, scv, "", protocol,  obfs, up, down,  ports, dmd);
             break;		
         case "vmess"_hash:
             group = V2RAY_DEFAULT_GROUP;
