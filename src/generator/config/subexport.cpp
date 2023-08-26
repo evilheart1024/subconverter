@@ -244,8 +244,10 @@ void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGr
 
         tribool udp = ext.udp;
         tribool scv = ext.skip_cert_verify;
+		tribool tfo = ext.tfo;
         udp.define(x.UDP);
         scv.define(x.AllowInsecure);
+		tfo.define(x.TCPFastOpen);
 
         singleproxy["name"] = remark;
         singleproxy["server"] = x.Hostname;
@@ -263,7 +265,8 @@ void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGr
 			singleproxy["skip-cert-verify"] = scv.get();
 			singleproxy["disable_mtu_discovery"] = x.TransferProtocol;
 			singleproxy["protocol"] = x.Protocol;
-			singleproxy["fast-open"] = x.TCPFastOpen;			
+			if(!tfo.is_undef())
+			singleproxy["fast-open"] = tfo.get();		
 			singleproxy["ports"] = x.Ports;			
             break;	
         case ProxyType::Shadowsocks:
