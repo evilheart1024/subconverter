@@ -37,6 +37,21 @@ void commonConstruct(Proxy &node, ProxyType type, const std::string &group, cons
     node.TLS13 = tls13;
 }
 
+void hyConstruct(Proxy &node, const std::string &group, const std::string &remarks, const std::string &server, const std::string &port, const std::string &password, tribool udp, tribool tfo, tribool scv, tribool tls13,
+const std::string &protocol, const std::string &obfs,const std::string &up, const std::string &down, 
+const std::string &ports, const std::string &dmd)
+{
+    commonConstruct(node, ProxyType::hysteria, group, remarks, server, port, udp, tfo, scv, tls13);
+    node.Password = password;
+    node.Protocol = protocol;
+    node.OBFS = obfs;
+	node.Up = to_int(up);
+	node.Down = to_int(down);
+	node.Ports = ports;
+	node.TransferProtocol = dmd ;
+}
+
+
 void vmessConstruct(Proxy &node, const std::string &group, const std::string &remarks, const std::string &add, const std::string &port, const std::string &type, const std::string &id, const std::string &aid, const std::string &net, const std::string &cipher, const std::string &path, const std::string &host, const std::string &edge, const std::string &tls, const std::string &sni, tribool udp, tribool tfo, tribool scv, tribool tls13)
 {
     commonConstruct(node, ProxyType::VMess, group, remarks, add, port, udp, tfo, scv, tls13);
@@ -944,6 +959,7 @@ void explodeClash(Node yamlnode, std::vector<Proxy> &nodes)
     std::string plugin, pluginopts, pluginopts_mode, pluginopts_host, pluginopts_mux; //ss
     std::string protocol, protoparam, obfs, obfsparam; //ssr
     std::string user; //socks
+	std::string up, down, ports, dmd; //hysteria
     tribool udp, tfo, scv;
     Node singleproxy;
     uint32_t index = nodes.size();
@@ -962,6 +978,19 @@ void explodeClash(Node yamlnode, std::vector<Proxy> &nodes)
         scv = safe_as<std::string>(singleproxy["skip-cert-verify"]);
         switch(hash_(proxytype))
         {
+	    case "hysteria"_hash:
+            group = SSR_DEFAULT_GROUP;
+
+            singleproxy["auth_str"] >>= password;
+            singleproxy["protocol"] >>= protocol;
+            singleproxy["obfs"] >>= obfs;
+            singleproxy["up"] >>= up;
+			singleproxy["down"] >>= down;
+			singleproxy["ports"] >>= ports;
+			singleproxy["disable_mtu_discovery"] >>= dmd;
+
+            hyConstruct(node, group, ps, server, port, password, udp, tfo, scv, "", protocol,  obfs, up, down,  ports, dmd)
+            break;		
         case "vmess"_hash:
             group = V2RAY_DEFAULT_GROUP;
 
