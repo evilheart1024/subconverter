@@ -262,11 +262,11 @@ void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGr
 			singleproxy["down"] = x.Down;
 			singleproxy["obfs"] = x.OBFS;
 			if(!scv.is_undef())
-			singleproxy["skip-cert-verify"] = scv.get();
+			    singleproxy["skip-cert-verify"] = scv.get();
 			singleproxy["disable_mtu_discovery"] = x.TransferProtocol;
 			singleproxy["protocol"] = x.Protocol;
 			if(!tfo.is_undef())
-			singleproxy["fast-open"] = tfo.get();		
+			    singleproxy["fast-open"] = tfo.get();		
 			singleproxy["ports"] = x.Ports;			
             break;	
         case ProxyType::Shadowsocks:
