@@ -259,7 +259,8 @@ void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGr
 			singleproxy["up"] = x.Up;
 			singleproxy["down"] = x.Down;
 			singleproxy["obfs"] = x.OBFS;
-			singleproxy["skip-cert-verify"] = x.AllowInsecure;
+			if(!scv.is_undef())
+			singleproxy["skip-cert-verify"] = scv.get();
 			singleproxy["disable_mtu_discovery"] = x.TransferProtocol;
 			singleproxy["protocol"] = x.Protocol;
 			singleproxy["fast-open"] = x.TCPFastOpen;			
