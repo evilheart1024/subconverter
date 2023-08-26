@@ -17,7 +17,8 @@ enum ProxyType
     Snell,
     HTTP,
     HTTPS,
-    SOCKS5
+    SOCKS5,
+    hysteria
 };
 
 inline String getProxyTypeName(int type)
@@ -40,6 +41,8 @@ inline String getProxyTypeName(int type)
         return "HTTPS";
     case ProxyType::SOCKS5:
         return "SOCKS5";
+    case ProxyType::hysteria:
+        return "hysteria";  
     default:
         return "Unknown";
     }
@@ -84,6 +87,10 @@ struct Proxy
 
     uint16_t SnellVersion = 0;
     String ServerName;
+   
+    String    ports;
+    uint16_t   up;
+    uint16_t down;
 };
 
 #define SS_DEFAULT_GROUP "SSProvider"
