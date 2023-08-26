@@ -88,9 +88,9 @@ struct Proxy
     uint16_t SnellVersion = 0;
     String ServerName;
    
-    String    ports;
-    uint16_t   up;
-    uint16_t down;
+    String   Ports;
+    uint16_t  Up;
+    uint16_t Down;
 };
 
 #define SS_DEFAULT_GROUP "SSProvider"
