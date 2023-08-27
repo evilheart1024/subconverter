@@ -4,7 +4,7 @@ version = 1
 api_mode = false
 
 # Access token used for performing critical action through Web interface
-api_access_token = "caicaiwohuibuhuigaosunid"
+api_access_token = ""
 
 # Default URLs, used when no URL is provided in request, use "|" to separate multiple subscription links, supports local files/URL
 default_url = []
