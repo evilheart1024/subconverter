@@ -211,13 +211,14 @@ void groupGenerate(const std::string &rule, std::vector<Proxy> &nodelist, string
     }
 }
 
-void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGroupConfigs &extra_proxy_group, bool clashR, extra_settings &ext)
+void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGroupConfigs &extra_proxy_group, std::string clashtype, extra_settings &ext)
 {
     YAML::Node proxies, original_groups;
     std::vector<Proxy> nodelist;
     string_array remarks_list;
     /// proxies style
     bool block = false, compact = false;
+	bool clashR = (clashtype == "clashr");
     switch(hash_(ext.clash_proxies_style))
     {
     case "block"_hash:
@@ -554,7 +555,7 @@ void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGr
         yamlnode["Proxy Group"] = original_groups;
 }
 
-std::string proxyToClash(std::vector<Proxy> &nodes, const std::string &base_conf, std::vector<RulesetContent> &ruleset_content_array, const ProxyGroupConfigs &extra_proxy_group, bool clashR, extra_settings &ext)
+std::string proxyToClash(std::vector<Proxy> &nodes, const std::string &base_conf, std::vector<RulesetContent> &ruleset_content_array, const ProxyGroupConfigs &extra_proxy_group, std::string clashtype, extra_settings &ext)
 {
     YAML::Node yamlnode;
 
@@ -568,7 +569,7 @@ std::string proxyToClash(std::vector<Proxy> &nodes, const std::string &base_conf
         return "";
     }
 
-    proxyToClash(nodes, yamlnode, extra_proxy_group, clashR, ext);
+    proxyToClash(nodes, yamlnode, extra_proxy_group, clashtype, ext);
 
     if(ext.nodelist)
         return YAML::Dump(yamlnode);
