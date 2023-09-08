@@ -714,7 +714,8 @@ std::string subconverter(RESPONSE_CALLBACK_ARGS)
         if(ext.nodelist)
         {
             YAML::Node yamlnode;
-            proxyToClash(nodes, yamlnode, dummy_group, argTarget == "clashr", ext);
+            //proxyToClash(nodes, yamlnode, dummy_group, argTarget == "clashr", ext);
+			proxyToClash(nodes, yamlnode, dummy_group, argTarget, ext);
             output_content = YAML::Dump(yamlnode);
         }
         else
@@ -724,7 +725,8 @@ std::string subconverter(RESPONSE_CALLBACK_ARGS)
                 *status_code = 400;
                 return base_content;
             }
-            output_content = proxyToClash(nodes, base_content, lRulesetContent, lCustomProxyGroups, argTarget == "clashr", ext);
+           // output_content = proxyToClash(nodes, base_content, lRulesetContent, lCustomProxyGroups, argTarget == "clashr", ext);
+		   output_content = proxyToClash(nodes, base_content, lRulesetContent, lCustomProxyGroups, argTarget, ext);
         }
 
         if(argUpload)
@@ -1055,7 +1057,7 @@ std::string surgeConfToClash(RESPONSE_CALLBACK_ARGS)
     ext.clash_proxies_style = global.clashProxiesStyle;
 
     ProxyGroupConfigs dummy_groups;
-    proxyToClash(nodes, clash, dummy_groups, false, ext);
+    proxyToClash(nodes, clash, dummy_groups, "clash", ext);
 
     section.clear();
     ini.get_items("Proxy", section);
