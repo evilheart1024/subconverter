@@ -257,7 +257,7 @@ void proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGr
         switch(x.Type)
         {
 		case ProxyType::hysteria:
-		    if (clashtype == 'clashm')
+		    if (clashtype == "clashm")
 			{
             singleproxy["type"] = "hysteria";
             singleproxy["auth_str"] = x.Password;
