@@ -409,7 +409,7 @@ std::string subconverter(RESPONSE_CALLBACK_ARGS)
     /// check other flags
     ext.authorized = authorized;
     ext.append_proxy_type = argAppendType.get(global.appendType);
-    if((argTarget == "clash" || argTarget == "clashr") && argGenClashScript.is_undef())
+    if((argTarget == "clash" || argTarget == "clashr" || argTarget == "clashm") && argGenClashScript.is_undef())
         argExpandRulesets.define(true);
 
     ext.clash_proxies_style = global.clashProxiesStyle;
@@ -707,8 +707,8 @@ std::string subconverter(RESPONSE_CALLBACK_ARGS)
     proxy = parseProxy(global.proxyConfig);
     switch(hash_(argTarget))
     {
-    case "clash"_hash: case "clashr"_hash:
-        writeLog(0, argTarget == "clashr" ? "Generate target: ClashR" : "Generate target: Clash", LOG_LEVEL_INFO);
+    case "clash"_hash: case "clashr"_hash: case "clashm"_hash:
+        writeLog(0, argTarget == "clashr" ? "Generate target: ClashR" : "Generate target: Clash or meta", LOG_LEVEL_INFO);
         tpl_args.local_vars["clash.new_field_name"] = ext.clash_new_field_name ? "true" : "false";
         response.headers["profile-update-interval"] = std::to_string(interval / 3600);
         if(ext.nodelist)
